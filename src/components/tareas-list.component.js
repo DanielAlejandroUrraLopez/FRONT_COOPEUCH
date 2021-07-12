@@ -49,7 +49,7 @@ getTareas(){
 }
 
 editarTarea(e){
-  this.props.history.push({pathname:"/add",state:{id: e}});
+  this.props.history.push({pathname:"/edit",state:{obj: e}});
 }
 
 
@@ -76,7 +76,7 @@ editarTarea(e){
                         <td>{value.fechaCreacion}</td>
                         <td>{value.vigente.toString()}</td>
                         <td>
-                        <button type="button" onClick={() => this.editarTarea(value.identificador)} class="btn btn-primary">Editar</button>
+                        <button type="button" onClick={() => this.editarTarea(value)} class="btn btn-primary">Editar</button>
                           <button type="button" onClick={() => this.deleteTarea(value.identificador)} class="btn btn-danger">Eliminar</button>
                         </td>
                     </tr>

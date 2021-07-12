@@ -5,6 +5,7 @@ import "./App.css";
 
 import AddTarea from "./components/add-tarea.component";
 import TareasList from "./components/tareas-list.component";
+import EditTarea from "././components/edit-tarea.component";
 
 class App extends Component {
   render() {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route exact path="/" component={TareasList} />
             <Route exact path="/tareas" component={TareasList} />
             <Route exact path="/add" component={AddTarea} />
+            <Route exact path="/edit" component={EditTarea} />
           </Switch>
         </div>
       </Router>

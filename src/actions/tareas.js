@@ -30,6 +30,7 @@ import {
         type: OBTENER_TAREAS,
         payload: res.data,
       });
+
       return Promise.resolve(res.data);
     } catch (err) {
       return Promise.reject(err);
@@ -59,6 +60,7 @@ import {
         type: BORRAR_TAREA,
         payload: { id },
       });
+      
     } catch (err) {
       console.log(err);
     }

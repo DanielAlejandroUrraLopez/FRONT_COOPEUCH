@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { agregarTarea, } from "../actions/tareas";
+import { modificarTarea } from "../actions/tareas";
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-class AddTarea extends Component {
+class EditTarea extends Component {
   constructor(props) {
     super(props);
     this.onChangeDescripcion = this.onChangeDescripcion.bind(this);
     this.onChangeVigente = this.onChangeVigente.bind(this);
-    this.saveTarea = this.saveTarea.bind(this);
+    this.editTarea = this.editTarea.bind(this);
 
     this.state = {
       identificador: null,
@@ -21,6 +21,21 @@ class AddTarea extends Component {
     };
 
     
+  }
+  componentDidMount(){
+    try{
+      console.log(this.props.location.state.obj);
+      this.setState({
+        identificador: this.props.location.state.obj.identificador,
+        descripcion: this.props.location.state.obj.descripcion,
+        vigente: this.props.location.state.obj.vigente,
+        fechaCreacion: this.props.location.state.obj.fechaCreacion,
+
+        submitted: true,
+      });
+    }catch(Error){
+
+    }
   }
 
   onChangeDescripcion(e) {
@@ -35,7 +50,7 @@ class AddTarea extends Component {
     });
   }
 
-  saveTarea() {
+  editTarea() {
     const {identificador,descripcion, vigente,fechaCreacion } = this.state;
 
     if(!descripcion.trim()){
@@ -43,7 +58,7 @@ class AddTarea extends Component {
     }else{
 
     this.props
-    .agregarTarea(identificador, descripcion,vigente, fechaCreacion)
+    .modificarTarea(identificador, this.state)
      .then((data) => {
        this.setState({
            identificador: data.identificador,
@@ -77,6 +92,7 @@ class AddTarea extends Component {
               className="form-control"
               id="descripcion"
               required
+              value={this.state.descripcion}
               onChange={this.onChangeDescripcion}
               name="descripcion"
             />
@@ -88,12 +104,14 @@ class AddTarea extends Component {
               className="form-control"
               id="vigente"
               required
+              checked={this.state.vigente}
+              value={this.state.vigente}
               onChange={this.onChangeVigente}
               name="vigente"
             />
           </div>
 
-          <button onClick={this.saveTarea} className="btn btn-success">
+          <button onClick={this.editTarea} className="btn btn-success">
             Guardar
           </button>
         </div>
@@ -103,4 +121,4 @@ class AddTarea extends Component {
   }
 }
 
-export default connect(null, { agregarTarea })(AddTarea);
+export default connect(null, { modificarTarea })(EditTarea);
